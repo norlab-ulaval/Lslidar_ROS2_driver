@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>lslidar_n301_decoder</name>
+  <version>1.2.0</version>
+  <description>Point cloud conversions for Leishen N301 LIDARs.</description>
+  <maintainer email="shaohuashu@lslidar.com">Nick Shu</maintainer>
+  <author>Nick Shu</author>
+  <license>GNC General Public License V3.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>pluginlib</depend>
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>pcl_msgs</depend>
+  <depend>rclpy</depend>
+  <depend>pcl_conversions</depend>
+  <depend>std_msgs</depend>
+  <depend>lslidar_n301_msgs</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
