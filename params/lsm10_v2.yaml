@@ -1,0 +1,10 @@
+lsm10_node:
+  ros__parameters:
+    scan_topic: scan       #设置激光数据topic名称
+    frame_id: laser_link     #激光坐标
+    serial_port: /dev/ttyUSB0  #雷达连接的串口
+    baud_rate: 460800        #雷达连接的串口波特率
+    angle_disable_min: 0.0 
+    angle_disable_max: 0.0  
+    min_range: 0.0
+    max_range: 100.0
