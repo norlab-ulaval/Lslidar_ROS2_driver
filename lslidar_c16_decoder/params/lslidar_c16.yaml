@@ -7,7 +7,7 @@ cloud_node:
     return_mode: 1
     config_vert: true 
     print_vert: false  
-    scan_frame_id: laser_link
+    scan_frame_id: lidar_link
     scan_num: 8
     publish_scan: false
     time_synchronization: false
@@ -17,7 +17,7 @@ lslidar_node:
     device_ip: 192.168.1.200
     msop_port: 2368
     difop_port: 2369
-    frame_id: laser_link       
+    frame_id: lidar_link
     add_multicast: false
     group_ip: 224.1.1.2
     rpm: 600.0

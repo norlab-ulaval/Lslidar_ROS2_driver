@@ -33,11 +33,11 @@ namespace lslidar_c16_driver {
         config_.return_mode = 1;
         config_.rpm = 600.0;
 
-        this->declare_parameter("frame_id");
-        this->declare_parameter("model");
-        this->declare_parameter("degree_mode");
-        this->declare_parameter("return_mode");
-        this->declare_parameter("rpm");
+        this->declare_parameter<std::string>("frame_id", "lslidar");
+        this->declare_parameter<std::string>("model", "LSC16");
+        this->declare_parameter<int>("degree_mode", 2);
+        this->declare_parameter<int>("return_mode", 1);
+        this->declare_parameter<float>("rpm", 600.0);
         this->get_parameter("frame_id", config_.frame_id);
         this->get_parameter("model", config_.model);
         this->get_parameter("degree_mode", config_.degree_mode);
@@ -58,8 +58,8 @@ namespace lslidar_c16_driver {
 
         int msop_udp_port = (int) MSOP_DATA_PORT_NUMBER;
         int difop_udp_port = (int) DIFOP_DATA_PORT_NUMBER;
-        this->declare_parameter("msop_port");
-        this->declare_parameter("difop_port");
+        this->declare_parameter<int>("msop_port", (int) MSOP_DATA_PORT_NUMBER);
+        this->declare_parameter<int>("difop_port", (int) DIFOP_DATA_PORT_NUMBER);
         this->get_parameter("msop_port", msop_udp_port);
         this->get_parameter("difop_port", difop_udp_port);
 
@@ -76,9 +76,9 @@ namespace lslidar_c16_driver {
         std::string output_packets_topic = std::string("lslidar_packet");
         std::string output_difop_topic = std::string("lslidar_packet_difop");
         time_synchronization_ = false;
-        this->declare_parameter("output_packets_topic");
-        this->declare_parameter("output_difop_topic");
-        this->declare_parameter("time_synchronization");
+        this->declare_parameter<std::string>("output_packets_topic", "lslidar_packet");
+        this->declare_parameter<std::string>("output_difop_topic", "lslidar_packet_difop");
+        this->declare_parameter<bool>("time_synchronization", false);
         this->get_parameter("output_packets_topic", output_packets_topic);
         this->get_parameter("output_difop_topic", output_difop_topic);
         this->get_parameter("time_synchronization", time_synchronization_);

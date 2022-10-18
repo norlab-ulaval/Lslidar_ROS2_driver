@@ -31,11 +31,11 @@ find_package(PkgConfig REQUIRED)
 
 add_library(pointcloud_converter src/convert.cpp src/rawdata.cpp)
 target_link_libraries(pointcloud_converter ${rclcpp_LIBRARIES})
-ament_target_dependencies(pointcloud_converter rclcpp std_msgs lslidar_c16_msgs sensor_msgs pcl_conversions)
+ament_target_dependencies(pointcloud_converter rclcpp std_msgs lslidar_c16_msgs sensor_msgs pcl_conversions angles)
 
 add_executable(cloud_node src/cloud_node.cpp)
 target_link_libraries(cloud_node ${rclcpp_LIBRARIES} pointcloud_converter)
-ament_target_dependencies(cloud_node rclcpp std_msgs lslidar_c16_msgs sensor_msgs pcl_conversions)
+ament_target_dependencies(cloud_node rclcpp std_msgs lslidar_c16_msgs sensor_msgs pcl_conversions angles)
 
 include_directories(
         include
@@ -68,7 +68,7 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_export_dependencies(rclcpp std_msgs lslidar_c16_msgs sensor_msgs pcl_conversions)
+ament_export_dependencies(rclcpp std_msgs lslidar_c16_msgs sensor_msgs pcl_conversions angles)
 ament_export_include_directories(include ${PCL_COMMON_INCLUDE_DIRS})
 
 ament_package()

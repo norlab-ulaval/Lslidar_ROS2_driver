@@ -41,16 +41,16 @@ namespace lslidar_rawdata {
         print_vert_ = true;
         model = std::string("LSC16");
         return_mode_ = 1;
-        private_nh_->declare_parameter("start_angle");
-        private_nh_->declare_parameter("end_angle");
-        private_nh_->declare_parameter("max_distance");
-        private_nh_->declare_parameter("min_distance");
-        private_nh_->declare_parameter("degree_mode");
-        private_nh_->declare_parameter("distance_unit");
-        private_nh_->declare_parameter("config_vert");
-        private_nh_->declare_parameter("print_vert");
-        private_nh_->declare_parameter("model");
-        private_nh_->declare_parameter("return_mode");
+        private_nh_->declare_parameter<float>("start_angle", 0.0f);
+        private_nh_->declare_parameter<float>("end_angle", 360.0f);
+        private_nh_->declare_parameter<float>("max_distance", 200.0f);
+        private_nh_->declare_parameter<float>("min_distance", 0.2f);
+        private_nh_->declare_parameter<int>("degree_mode", 0);
+        private_nh_->declare_parameter<float>("distance_unit", 0.25f);
+        private_nh_->declare_parameter<bool>("config_vert", true);
+        private_nh_->declare_parameter<bool>("print_vert", true);
+        private_nh_->declare_parameter<std::string>("model", "LSC16");
+        private_nh_->declare_parameter<int>("return_mode", 1);
 
         private_nh_->get_parameter("start_angle", start_angle_);
         private_nh_->get_parameter("end_angle", end_angle_);

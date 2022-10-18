@@ -18,6 +18,7 @@ def generate_launch_description():
                                 output='screen',
                                 emulate_tty=True,
                                 parameters=[decoder_dir],
+                                namespace="",
                                 )
     driver_node = LifecycleNode(package='lslidar_c16_driver',
                                 executable='lslidar_node',
@@ -25,6 +26,7 @@ def generate_launch_description():
                                 output='screen',
                                 emulate_tty=True,
                                 parameters=[decoder_dir],
+                                namespace="",
                                 )
                                 
     return LaunchDescription([

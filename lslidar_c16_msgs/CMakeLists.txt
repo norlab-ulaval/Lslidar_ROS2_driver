@@ -37,7 +37,7 @@ rosidl_generate_interfaces(lslidar_c16_msgs
   "msg/LslidarC16Scan.msg"
   "msg/LslidarC16Sweep.msg"
   "msg/LslidarC16ScanUnified.msg"
-  DEPENDENCIES builtin_interfaces std_msgs
+  DEPENDENCIES builtin_interfaces std_msgs sensor_msgs
   )
 
 ament_package()

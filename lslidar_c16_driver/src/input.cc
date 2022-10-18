@@ -47,9 +47,9 @@ Input::Input(rclcpp::Node* private_nh, uint16_t port) : private_nh_(private_nh),
   
   if(Input_first_time == 0)
   {
-	  private_nh->declare_parameter("device_ip");
-	  private_nh->declare_parameter("add_multicast");
-	  private_nh->declare_parameter("group_ip");
+	  private_nh->declare_parameter<std::string>("device_ip", "192.168.1.200");
+	  private_nh->declare_parameter<bool>("add_multicast", false);
+	  private_nh->declare_parameter<std::string>("group_ip", "224.1.1.2");
 	  Input_first_time++;
   }
   private_nh->get_parameter("device_ip", devip_str_);
@@ -251,7 +251,7 @@ int InputSocket::getPacket(lslidar_c16_msgs::msg::LslidarC16Packet& pkt, const d
       else
         break;  // done
     }
-	RCLCPP_WARN(private_nh_->get_logger(), "[driver][socket] incomplete rslidar packet read: %d bytes", nbytes);
+	RCLCPP_WARN(private_nh_->get_logger(), "[driver][socket] incomplete rslidar packet read: %d bytes", (int) nbytes);
   }
   if (flag == 0)
   {
