@@ -12,8 +12,8 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 set(libpcap_LIBRARIES -lpcap)       
-set(FastRTPS_INCLUDE_DIR /opt/ros/foxy/include)
-set(FastRTPS_LIBRARY_RELEASE /opt/ros/foxy/lib/libfastrtps.so)
+set(FastRTPS_INCLUDE_DIR /opt/ros/humble/include)
+set(FastRTPS_LIBRARY_RELEASE /opt/ros/humble/lib/libfastrtps.so)
 
 find_package(angles REQUIRED)
 find_package(lslidar_c16_msgs REQUIRED)

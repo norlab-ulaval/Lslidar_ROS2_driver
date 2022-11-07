@@ -11,8 +11,8 @@ if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)
 endif()
 
-set(FastRTPS_INCLUDE_DIR /opt/ros/foxy/include)
-set(FastRTPS_LIBRARY_RELEASE /opt/ros/foxy/lib/libfastrtps.so)
+set(FastRTPS_INCLUDE_DIR /opt/ros/humble/include)
+set(FastRTPS_LIBRARY_RELEASE /opt/ros/humble/lib/libfastrtps.so)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
