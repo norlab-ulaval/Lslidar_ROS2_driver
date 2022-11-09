@@ -152,6 +152,7 @@ namespace lslidar_c16_decoder {
         sensor_msgs::msg::PointCloud2 outMsg;
         pcl::toROSMsg(*outPoints, outMsg);
         outMsg.header.stamp = scanMsg->header.stamp;
+	outMsg.header.frame_id = scan_frame_id; 
         output_->publish(outMsg);
     }
 }  // namespace lslidar_c16_decoder
