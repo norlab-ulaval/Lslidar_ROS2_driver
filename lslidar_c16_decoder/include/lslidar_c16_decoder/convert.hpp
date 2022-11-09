@@ -19,8 +19,10 @@
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "lslidar_c16_decoder/rawdata.hpp"
 #include "sensor_msgs/msg/time_reference.hpp"
+#include "sensor_msgs/point_cloud2_iterator.hpp"
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/filters/filter.h>
+#include <list>
 
 namespace lslidar_c16_decoder {
     class Convert : public rclcpp::Node {

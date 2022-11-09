@@ -142,17 +142,57 @@ namespace lslidar_c16_decoder {
 
         // process each packet provided by the driver
         data_->block_num = 0;
+        std::vector<float> time_vect;
+
         for (size_t i = 0; i < scanMsg->packets.size(); ++i) {
-            data_->unpack(scanMsg->packets[i], outPoints, sweep_data, i);
+            data_->unpack(scanMsg->packets[i], outPoints, sweep_data, i, time_vect);
         }
 
         if (publish_scan)
             publishScan(sweep_data, scan_num);
         //pcl::removeNaNFromPointCloud(*outPoints, *outPoints, indices);
+        std::vector<float> x_vect;
+        std::vector<float> y_vect;
+        std::vector<float> z_vect;
+        std::vector<float> intensity_vect;
+
+        for (size_t i = 0; i < outPoints->points.size(); ++i){
+            x_vect.push_back(outPoints->points[i].x);
+            y_vect.push_back(outPoints->points[i].y);
+            z_vect.push_back(outPoints->points[i].z);
+            intensity_vect.push_back(outPoints->points[i].intensity);
+        }
+
+
         sensor_msgs::msg::PointCloud2 outMsg;
-        pcl::toROSMsg(*outPoints, outMsg);
         outMsg.header.stamp = scanMsg->header.stamp;
-	outMsg.header.frame_id = scan_frame_id; 
+	    outMsg.header.frame_id = scan_frame_id;
+
+        sensor_msgs::PointCloud2Modifier pcd_modifier(outMsg);
+        // this call also resizes the data structure according to the given width, height and fields
+        pcd_modifier.setPointCloud2Fields(5, "x", 1, sensor_msgs::msg::PointField::FLOAT32,
+                                            "y", 1, sensor_msgs::msg::PointField::FLOAT32,
+                                            "z", 1, sensor_msgs::msg::PointField::FLOAT32,
+                                            "intensity", 1, sensor_msgs::msg::PointField::FLOAT32,
+                                            "t", 1, sensor_msgs::msg::PointField::FLOAT32);
+
+        sensor_msgs::PointCloud2Iterator<float> iter_x(outMsg, "x");
+        sensor_msgs::PointCloud2Iterator<float> iter_y(outMsg, "y");
+        sensor_msgs::PointCloud2Iterator<float> iter_z(outMsg, "z");
+        sensor_msgs::PointCloud2Iterator<float> iter_i(outMsg, "intensity");
+        sensor_msgs::PointCloud2Iterator<float> iter_t(outMsg, "t");
+
+        int index_in_vectors;
+        for (index_in_vectors = 0; iter_x != iter_x.end(); ++iter_x, ++iter_y, ++iter_z, ++iter_i, ++iter_t, ++index_in_vectors)
+        {
+            // copy the data
+            *iter_x = x_vect[index_in_vectors];
+            *iter_y = y_vect[index_in_vectors];
+            *iter_z = z_vect[index_in_vectors];
+            *iter_i = intensity_vect[index_in_vectors];
+            *iter_t = time_vect[index_in_vectors];
+        }
+         
         output_->publish(outMsg);
     }
 }  // namespace lslidar_c16_decoder
