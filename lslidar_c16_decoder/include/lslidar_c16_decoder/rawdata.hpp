@@ -192,7 +192,7 @@ namespace lslidar_rawdata {
 
         /*unpack the UDP packet and opuput PCL PointXYZI type*/
         void unpack(const lslidar_c16_msgs::msg::LslidarC16Packet &pkt, pcl::PointCloud<pcl::PointXYZI>::Ptr pointcloud,
-                    lslidar_c16_msgs::msg::LslidarC16Sweep::SharedPtr sweep_data, int Packet_num, std::vector<float> time_vect);
+                    lslidar_c16_msgs::msg::LslidarC16Sweep::SharedPtr sweep_data, int Packet_num, std::vector<u_int32_t>& time_vect);
 
         void processDifop(const lslidar_c16_msgs::msg::LslidarC16Packet::SharedPtr difop_msg);
 

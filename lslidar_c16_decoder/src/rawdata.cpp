@@ -227,7 +227,7 @@ namespace lslidar_rawdata {
  */
     void
     RawData::unpack(const lslidar_c16_msgs::msg::LslidarC16Packet &pkt, pcl::PointCloud<pcl::PointXYZI>::Ptr pointcloud,
-                    lslidar_c16_msgs::msg::LslidarC16Sweep::SharedPtr sweep_data, int Packet_num, std::vector<float> time_vect) {
+                    lslidar_c16_msgs::msg::LslidarC16Sweep::SharedPtr sweep_data, int Packet_num, std::vector<u_int32_t>& time_vect) {
         float azimuth;  // 0.01 dgree
         float intensity;
         float azimuth_diff;
@@ -248,6 +248,7 @@ namespace lslidar_rawdata {
         }
 
         const raw_packet_t *raw = (const raw_packet_t *) &pkt.data[0];
+
         for (int block = 0; block < BLOCKS_PER_PACKET; block++, this->block_num++)  // 1 packet:12 data blocks
         {
             if (UPPER_BANK != raw->blocks[block].header) {
@@ -335,7 +336,7 @@ namespace lslidar_rawdata {
                         point.intensity = 0;
                         //point.lines = dsr;
                         pointcloud->at(2 * this->block_num + firing, dsr) = point;
-                        double timestamp = (LSC16_BLOCK_TDURATION + LSC16_FIRING_TOFFSET*firing + LSC16_DSR_TOFFSET*dsr)*1e3;
+                        uint32_t timestamp = (LSC16_BLOCK_TDURATION*block + LSC16_FIRING_TOFFSET*firing + LSC16_DSR_TOFFSET*dsr)*1e3;
                         time_vect.push_back(timestamp);
                     } else {
 
@@ -362,7 +363,7 @@ namespace lslidar_rawdata {
                         new_point.distance = sqrt(pow(point.x, 2) + pow(point.y, 2) + pow(point.z, 2));
                         new_point.intensity = point.intensity;
 
-                        double timestamp = (LSC16_BLOCK_TDURATION + LSC16_FIRING_TOFFSET*firing + LSC16_DSR_TOFFSET*dsr)*1e3;
+                        uint32_t timestamp = (LSC16_BLOCK_TDURATION*block + LSC16_FIRING_TOFFSET*firing + LSC16_DSR_TOFFSET*dsr)*1e3;
                         time_vect.push_back(timestamp);
                     }
                 }
