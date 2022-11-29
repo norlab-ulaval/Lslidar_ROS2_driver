@@ -170,7 +170,7 @@ namespace lslidar_c16_decoder {
         outMsg.header.stamp = scanMsg->header.stamp;
 	    outMsg.header.frame_id = scan_frame_id;
         int height = 16;
-        int width = int(num_of_points/height);
+        int width = int(time_vect.size()/height)+1; //TODO ceil? 
         bool is_dense = true;
 
         outMsg.height = height;
@@ -191,17 +191,30 @@ namespace lslidar_c16_decoder {
         sensor_msgs::PointCloud2Iterator<float> iter_i(outMsg, "intensity");
         sensor_msgs::PointCloud2Iterator<u_int32_t> iter_t(outMsg, "t");
 
+        // RCLCPP_INFO(this->get_logger(), "x size : %lu", x_vect.size());
+        // RCLCPP_INFO(this->get_logger(), "time size: %lu", time_vect.size());
+        // RCLCPP_INFO(this->get_logger(), "pointcloud size : %d", outMsg.width*outMsg.height);
+
+
         int index_in_vectors = 0;
-        for (; iter_x != iter_x.end(); ++iter_x, ++iter_y, ++iter_z, ++iter_i, ++iter_t, ++index_in_vectors)
+        for (; iter_x!=iter_x.end(); ++iter_x, ++iter_y, ++iter_z, ++iter_i, ++iter_t, ++index_in_vectors)
         {
+            if (index_in_vectors>=time_vect.size())
+            {
+                *iter_x = NAN;
+                *iter_y = NAN;
+                *iter_z = NAN;
+                *iter_i = NAN;
+                *iter_t = NAN;
+            }
             // copy the data
-            *iter_x = x_vect[index_in_vectors];
-            *iter_y = y_vect[index_in_vectors];
-            *iter_z = z_vect[index_in_vectors];
-            *iter_i = intensity_vect[index_in_vectors];
-            *iter_t = time_vect[index_in_vectors];
-//            RCLCPP_INFO(this->get_logger(), "timestamp sec: %f", time_vect[index_in_vectors]);
-//            RCLCPP_INFO(this->get_logger(), "timestamp pointcloud sec: %f", *iter_t);
+            else{
+                *iter_x = x_vect[index_in_vectors];
+                *iter_y = y_vect[index_in_vectors];
+                *iter_z = z_vect[index_in_vectors];
+                *iter_i = intensity_vect[index_in_vectors];
+                *iter_t = time_vect[index_in_vectors];
+            }
         }
          
         output_->publish(outMsg);

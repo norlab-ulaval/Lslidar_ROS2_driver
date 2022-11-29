@@ -336,7 +336,7 @@ namespace lslidar_rawdata {
                         point.intensity = 0;
                         //point.lines = dsr;
                         pointcloud->at(2 * this->block_num + firing, dsr) = point;
-                        uint32_t timestamp = (LSC16_BLOCK_TDURATION*block + LSC16_FIRING_TOFFSET*firing + LSC16_DSR_TOFFSET*dsr)*1e3;
+                        uint32_t timestamp = (LSC16_BLOCK_TDURATION*this->block_num + LSC16_FIRING_TOFFSET*firing + LSC16_DSR_TOFFSET*dsr)*1e3;
                         time_vect.push_back(timestamp);
                     } else {
 
@@ -363,8 +363,12 @@ namespace lslidar_rawdata {
                         new_point.distance = sqrt(pow(point.x, 2) + pow(point.y, 2) + pow(point.z, 2));
                         new_point.intensity = point.intensity;
 
-                        uint32_t timestamp = (LSC16_BLOCK_TDURATION*block + LSC16_FIRING_TOFFSET*firing + LSC16_DSR_TOFFSET*dsr)*1e3;
+                        uint32_t timestamp = (LSC16_BLOCK_TDURATION*this->block_num + LSC16_FIRING_TOFFSET*firing + LSC16_DSR_TOFFSET*dsr)*1e3;
                         time_vect.push_back(timestamp);
+                        // RCLCPP_INFO(private_nh_->get_logger(), "block_number: %d", this->block_num);
+                        // RCLCPP_INFO(private_nh_->get_logger(), "firing: %d", firing);
+                        // RCLCPP_INFO(private_nh_->get_logger(), "dsr: %d", dsr);
+                        // RCLCPP_INFO(private_nh_->get_logger(), "timestamp pointcloud nanosec: %u", timestamp);
                     }
                 }
             }

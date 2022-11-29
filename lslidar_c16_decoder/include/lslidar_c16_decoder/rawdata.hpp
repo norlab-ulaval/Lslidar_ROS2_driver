@@ -64,7 +64,7 @@ namespace lslidar_rawdata {
     static const int LSC16_SCANS_PER_FIRING = 16;
     static const float LSC16_BLOCK_TDURATION = 100.0f;  // [µs]
     static const float LSC16_DSR_TOFFSET = 3.125f;        // [µs]
-    static const float LSC16_FIRING_TOFFSET = 100.0f;    // [µs]
+    static const float LSC16_FIRING_TOFFSET = 50.0f;    // [µs]
 
 
     static const int TEMPERATURE_MIN = 31;
