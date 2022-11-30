@@ -171,7 +171,7 @@ namespace lslidar_c16_decoder {
 	    outMsg.header.frame_id = scan_frame_id;
         int height = 16;
         int width = int(time_vect.size()/height)+1; //TODO ceil? 
-        bool is_dense = true;
+        bool is_dense = false;
 
         outMsg.height = height;
         outMsg.width = width;
