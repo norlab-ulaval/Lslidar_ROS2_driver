@@ -88,14 +88,14 @@ namespace lslidar_rawdata {
         uint8_t data[BLOCK_DATA_SIZE];  // 96
     } raw_block_t;
 
-    struct PointXYZITM {
+    struct EIGEN_ALIGN16 PointXYZITM  {
         PCL_ADD_POINT4D
                 uint8_t
         intensity;
         uint8_t lines;
         uint64_t timestamp;
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW  // make sure our new allocators are aligned
-    } EIGEN_ALIGN16;
+    };
 
 /** used for unpacking the first two data bytes in a block
  *
